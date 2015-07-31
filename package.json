@@ -1,0 +1,53 @@
+{
+  "name": "gulp-assets-version-replace",
+  "description": "Generate and replace static assets version with Gulp",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Black-Mirror/gulp-assets-version-replace",
+  "author": {
+    "name": "bammoo",
+    "email": "xiao-jianfeng@qq.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Black-Mirror/gulp-assets-version-replace.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Black-Mirror/gulp-assets-version-replace/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/Black-Mirror/gulp-assets-version-replace/blob/master/LICENSE.md"
+    }
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "gulp": ">=3.5.6",
+    "gulp-rename": ">=1.2.0",
+    "gulp-replace": "^0.4.0",
+    "gulp-sequence": ">=0.3.0",
+    "gulp-util": ">=2.2.14"
+  },
+  "browserDependencies": {
+    "grunt": "~0.4.1"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.1"
+  },
+  "keywords": [
+    "gruntplugin"
+  ],
+  "dependencies": {},
+  "dist": {
+    "shasum": "fead41b6254a4e87e4d145a1d083d53461742b90",
+    "tarball": "http://registry.npmjs.org/gulp-assets-version-replace/-/gulp-assets-version-replace-0.3.0.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/gulp-assets-version-replace/-/gulp-assets-version-replace-0.3.0.tgz"
+}
