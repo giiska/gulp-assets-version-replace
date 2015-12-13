@@ -140,5 +140,6 @@ Default value: `[]`
 
 ## Release History
 
+* 2015-12-13   v0.1.2   Update github repo link
 * 2015-12-13   v0.1.1   Update doc
 * 2015-07-31   v0.1.0   Initial commit
