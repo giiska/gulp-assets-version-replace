@@ -1,5 +1,9 @@
 # gulp-assets-version-replace  [![Build Status](https://travis-ci.org/Black-Mirror/gulp-assets-version-replace.svg?branch=master)](https://travis-ci.org/Black-Mirror/gulp-assets-version-replace) [![npm version](https://badge.fury.io/js/gulp-assets-version-replace.svg)](http://badge.fury.io/js/gulp-assets-version-replace)
 
+
+[中文文档](README-cn.md)
+
+
 > **The simplest version manage solution of website assets.**
 >  
 >  Support manage assets version in template files of php, python Django, Express and etc.
