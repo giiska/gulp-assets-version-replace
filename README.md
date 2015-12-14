@@ -1,5 +1,6 @@
 # gulp-assets-version-replace  [![Build Status](https://travis-ci.org/Black-Mirror/gulp-assets-version-replace.svg?branch=master)](https://travis-ci.org/Black-Mirror/gulp-assets-version-replace) [![npm version](https://badge.fury.io/js/gulp-assets-version-replace.svg)](http://badge.fury.io/js/gulp-assets-version-replace)
 
+[Grunt version is here](https://github.com/bammoo/grunt-assets-version-replace)
 
 [中文文档](README-cn.md)
 
