@@ -97,7 +97,7 @@ Form asset link as below in your template:
 
 **Notes:** 
 -  `auto_create_ts_000` is a placeholder for replacing with generated versions
--  `auto_create_ts_` is prefix [see document](options.tsPrefix)
+-  `auto_create_ts_` is prefix [see document](#optionstsprefix)
 
 
 ## Gulp Plugin Options
