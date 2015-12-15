@@ -5,9 +5,14 @@
 [中文文档](README-cn.md)
 
 
-> **The simplest version manage solution of website assets.**
->  
->  Support manage assets version in template files of php, python Django, Express and etc.
+> **Gulp plugin for managing version of assets, easy to build new version to commit and deploy.**
+
+
+**Support**
+
+- Create new version only for changed assets
+- Auto replace versioned assets in template files, like php, python Django, Express and etc.
+  
 
 ## Example
 
@@ -24,11 +29,10 @@ css_build/webapp.css
 **Links in templates：**
 
 ```html
-<link href="static/dist/css_build/app.auto_create_ts_000.css" />
-<link href="static/dist/css_build/desktop.auto_create_ts_000.css" />
+<link href="static/dist/css_build/webapp.__placeholder__.css" />
 ```
 
-*Note:  `auto_create_ts_000` is a placeholder for replacing with generated versions*
+*Note:  `__placeholder__` is a placeholder when it's not auto versioned before*
 
 #### 2. Configs in gulpfile.js：
 
@@ -36,7 +40,6 @@ css_build/webapp.css
 gulp.task('assetsVersionReplace', function () {
     assetsVersionReplace({
       tsFiles: ['test/css_build/*.css', 'test/js_build/*.js'],
-      tsPrefix: 'common_auto_create_ts_',
       tsVersionedFilesDest: 'test/dist/',
       replaceTemplateList: [
         'test/header.php',
@@ -55,15 +58,14 @@ Your get these result:
 * **Files named with generated version** 
 
 ```
-    dest/app.auto_create_ts_1421999411.js
-    dest/webapp.auto_create_ts_1421999411.css
+    dest/js_build/app.c7ccb6b8ce569a65ed09d4256e89ec30.js
+    dest/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css
 ```
 
-* **LInks in template have been replaced with generated version**
+* **Links in templates have been replaced with generated version**
 
 ```html
-<link href="static/dist/css_build/app.auto_create_ts_1421999411.css" />
-<link href="static/dist/css_build/desktop.auto_create_ts_1421999411.css" />
+<link href="static/dist/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css" />
 ```
 
 #### 4. Commit these build assets and changes in template file
@@ -82,6 +84,8 @@ In your gulpfile.js place this line:
 var assetsVersionReplace = require('gulp-assets-version-replace');
 ```
 
+A dot file called `.gulp-assets-version-replace` will be created beside your gulpfile.js to serve as a json store. **Please ignore it in your .gitignore or .hgignore etc.**
+
 Form asset link as below in your template:
 
 ```html
@@ -90,15 +94,14 @@ Form asset link as below in your template:
 <head>
   <meta charset="utf-8" />
   <title>test</title>
-  <link href="static/dist/css_build/app.auto_create_ts_000.css" />
-  <link href="static/dist/css_build/desktop.auto_create_ts_000.css" />
+  <link href="static/dist/css_build/app.__placeholder__.css" />
+  <link href="static/dist/css_build/desktop.__placeholder__.css" />
 </head>
 <body>
 ```
 
 **Notes:** 
--  `auto_create_ts_000` is a placeholder for replacing with generated versions
--  `auto_create_ts_` is prefix [see document](#optionstsprefix)
+`__placeholder__` is a placeholder for replacing with generated versions at first time
 
 
 ## Gulp Plugin Options
@@ -109,17 +112,6 @@ Array of globs. Files which will be copied to a new folder and named with gerena
 
 Type: `Array`
 Default value: `[]`
-
-
-#### options.tsPrefix
-
-Prefix of gerenated version. 
-E.g. prefix `taobao_new_home_auto_create_ts_`  will get result files like this `taobao_new_home_auto_create_ts_1421999411.js` 
-
-Generally no need to config it excerpt there is conflict in your code.
-
-Type: `String`
-Default value: `auto_create_ts_`
 
 
 #### options.tsVersionedFilesDest
@@ -141,6 +133,7 @@ Default value: `[]`
 
 ## Release History
 
+* 2015-12-15   v1.0.0   Refactor code, add feature of version store and compare
 * 2015-12-13   v0.1.2   Update github repo link
 * 2015-12-13   v0.1.1   Update doc
 * 2015-07-31   v0.1.0   Initial commit

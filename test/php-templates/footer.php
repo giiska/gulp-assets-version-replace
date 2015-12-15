@@ -1,4 +1,4 @@
-  <script src="/dist/js_build/app.min.auto_create_ts_1438357324.js"></script>
+  <script src="/dist/js_build/app.min.__placeholder__.js"></script>
 
 </body>
 </html>
