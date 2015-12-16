@@ -1,23 +1,25 @@
-# gulp-assets-version-replace  [![Build Status](https://travis-ci.org/Black-Mirror/gulp-assets-version-replace.svg?branch=master)](https://travis-ci.org/Black-Mirror/gulp-assets-version-replace) [![npm version](https://badge.fury.io/js/gulp-assets-version-replace.svg)](http://badge.fury.io/js/gulp-assets-version-replace)
+# gulp-assets-version-replace  [![Build Status](https://travis-ci.org/bammoo/gulp-assets-version-replace.svg?branch=master)](https://travis-ci.org/bammoo/gulp-assets-version-replace) [![npm version](https://badge.fury.io/js/gulp-assets-version-replace.svg)](http://badge.fury.io/js/gulp-assets-version-replace)
 
 [Grunt version is here](https://github.com/bammoo/grunt-assets-version-replace)
 
 [中文文档](README-cn.md)
 
 
-> **Gulp plugin for managing version of assets, easy to build new version to commit and deploy.**
+> Gulp plugin for managing version of assets, easy to build new version to commit and deploy.
 
 
-**Support**
+## Features
 
+- Generate new file for js,css etc. based on md5 of file contents
 - Create new version only for changed assets
-- Auto replace versioned assets in template files, like php, python Django, Express and etc.
+- Auto replace versioned assets in template files, like php, python Django, Expressjs ejs and etc.
   
 
 ## Example
 
 
-#### 1. Your assets files
+#### 1. File structure
+
 **Assets structure：**
  
 ```
@@ -58,8 +60,8 @@ Your get these result:
 * **Files named with generated version** 
 
 ```
-    dest/js_build/app.c7ccb6b8ce569a65ed09d4256e89ec30.js
-    dest/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css
+dest/js_build/app.c7ccb6b8ce569a65ed09d4256e89ec30.js
+dest/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css
 ```
 
 * **Links in templates have been replaced with generated version**
@@ -68,8 +70,9 @@ Your get these result:
 <link href="static/dist/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css" />
 ```
 
-#### 4. Commit these build assets and changes in template file
+#### 4. Commit or config more
 
+You can commit the result of prev step directly if you are deployoing a static site.
 
 
 ## Install
@@ -86,7 +89,7 @@ var assetsVersionReplace = require('gulp-assets-version-replace');
 
 A dot file called `.gulp-assets-version-replace` will be created beside your gulpfile.js to serve as a json store. **Please ignore it in your .gitignore or .hgignore etc.**
 
-Form asset link as below in your template:
+Form asset link as following in your template:
 
 ```html
 <!doctype html>

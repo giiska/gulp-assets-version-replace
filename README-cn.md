@@ -1,14 +1,80 @@
-# gulp-assets-version-replace 中文说明  [![Build Status](https://travis-ci.org/Black-Mirror/gulp-assets-version-replace.svg?branch=master)](https://travis-ci.org/Black-Mirror/gulp-assets-version-replace) [![npm version](https://badge.fury.io/js/gulp-assets-version-replace.svg)](http://badge.fury.io/js/gulp-assets-version-replace)
+# gulp-assets-version-replace 中文说明  [![Build Status](https://travis-ci.org/bammoo/gulp-assets-version-replace.svg?branch=master)](https://travis-ci.org/bammoo/gulp-assets-version-replace) [![npm version](https://badge.fury.io/js/gulp-assets-version-replace.svg)](http://badge.fury.io/js/gulp-assets-version-replace)
 
-> The simplest version manage solution of web statics
-> 最简单的模板文件静态资源版本号替换方案
 
-## Brief
-说明
+> 静态文件版本管理 Gulp 插件，最方便的静态文件发布方案。
 
-js css 等静态文件复制成以时间戳命名的文件，并以这个新时间戳替换 html, php 等页面模板的老时间戳。
+## Features
+
+- js css 等静态文件生成以文件内容的 md5 命名的新文件
+- 只对有改动的静态文件生成新版本
+- 自动替换所有模板引用，理论上支持所有模板语言 php, python Django, Expressjs ejs jade 等
+
 
 ## 如果没有用过 gulp 请看 [http://gulpjs.com/](http://gulpjs.com/)
+
+
+### Demo
+
+#### 1. 文件结构
+
+**静态资源如下：**
+
+
+```
+js_build/app.js
+css_build/webapp.css
+```
+
+* `js_build` 和 `css_build` 下的文件是 compass uglify 生成的文件*
+
+
+**你模板中的链接如下：**
+
+```html
+<link href="static/dist/css_build/webapp.__placeholder__.css" />
+```
+
+*注意:  `__placeholder__` 是还未生成过版本的标识。*
+
+
+#### 2. gulpfile.js 配置如：
+
+```js
+
+gulp.task('assetsVersionReplace', function () {
+    assetsVersionReplace({
+      tsFiles: ['test/css_build/*.css', 'test/js_build/*.js'],
+      tsVersionedFilesDest: 'test/dist/',
+      replaceTemplateList: [
+        'test/header.php',
+        'test/footer.php',
+        'test/submodule/header.php',
+      ]
+    })
+});
+```
+
+#### 3. 运行 gulp task
+	
+`gulp assetsVersionReplace` 
+	
+得到结果：
+
+```
+dest/js_build/app.c7ccb6b8ce569a65ed09d4256e89ec30.js
+dest/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css
+```
+
+* **模板中静态文件版本号也被自动替换了**
+
+```html
+<link href="static/dist/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css" />
+```
+
+#### 4. 提交
+
+如果是静态网站，你可以直接提交结果了。
+
 
 ## 安装
 
@@ -23,6 +89,26 @@ npm install gulp-assets-version-replace --save-dev
 var assetsVersionReplace = require('gulp-assets-version-replace');
 ```
 
+运行 gulp task 后 Gulpfile.js 目录下会自动生成一个 `.gulp-assets-version-replace` 的文件用于本地存储 json 格式的版本管理数据库。你可以添加到 .gitignore 或 .hgignore 中。
+
+在你的模板中使用这样的格式：
+
+```html
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>test</title>
+  <link href="static/dist/css_build/app.__placeholder__.css" />
+  <link href="static/dist/css_build/desktop.__placeholder__.css" />
+</head>
+<body>
+```
+
+**注意:** 
+`__placeholder__` 是还未生成过版本的标识。
+
+
 ## 配置
 
 ### 配置选项
@@ -33,15 +119,6 @@ var assetsVersionReplace = require('gulp-assets-version-replace');
 
 Type: `Array`
 Default value: `[]`
-
-
-#### options.tsPrefix
-
-时间戳前缀，比如生成 'taobao_new_home_auto_create_ts_1421999411.js'，前缀即是 `taobao_new_home_auto_create_ts_`。用于搜索、替换模板文件中的时间戳。**同一个模板文件中可能要替换两个或多个不同前缀组成的时间戳。**
-
-Type: `String`
-Default value: `auto_create_ts_`
-
 
 #### options.tsVersionedFilesDest
 
@@ -59,76 +136,11 @@ Type: `Array`
 Default value: `[]`
 
 
-### 配置 demo
-
-> 静态资源如下：
-    js_build/app.js
-    css_build/webapp.css
-
-*js_build 和 css_build 下的文件是 compass uglify 生成的文件*
-
-配置如：
-
-```js
-
-gulp.task('assetsVersionReplace', function () {
-    assetsVersionReplace({
-      tsFiles: ['test/css_build/*.css', 'test/js_build/*.js'],
-      tsPrefix: 'common_auto_create_ts_',
-      tsVersionedFilesDest: 'test/dist/',
-      replaceTemplateList: [
-        'test/header.php',
-        'test/footer.php',
-        'test/submodule/header.php',
-      ]
-    })
-});
-```
-
-
-    生成结果：
-    dest/app.auto_create_ts_1421999411.js
-    dest/webapp.auto_create_ts_1421999411.css
-
-
-更复杂的配置(注意 tsPrefix 是不同的)：
-
-```js
-
-gulp.task('assetsVersionReplace', function () {
-    assetsVersionReplace({
-      tsFiles: ['test/css_build/*.css', 'test/js_build/*.js'],
-      tsPrefix: 'common_auto_create_ts_',
-      tsVersionedFilesDest: 'test/dist/',
-      replaceTemplateList: [
-        'test/header.php',
-        'test/footer.php',
-        'test/submodule/header.php',
-      ]
-    })
-    assetsVersionReplace({
-      tsFiles: ['test/submodule/css_build/*.css', 'test/submodule/js_build/*.js'],
-      tsPrefix: 'submodule_auto_create_ts_',
-      tsVersionedFilesDest: 'test/dist/',
-      replaceTemplateList: [
-        'test/submodule/header.php',
-        'test/submodule/footer.php'
-      ]
-    })
-});
-```
-
-
-    生成结果：
-    dest/js_build/app.auto_create_ts_1421999411.js
-    dest/css_build/webapp.auto_create_ts_1421999411.css
-    dest/submodule/js_build/app.auto_create_ts_1421999411.js
-    dest/submodule/css_build/webapp.auto_create_ts_1421999411.css
-
-
-
 ## Release History
 
+* 2015-12-15   v1.0.0   Refactor code, add feature of version store and compare
 * 2015-12-13   v0.1.2   Update github repo link
-* 2015-12-13 v0.1.1 Update doc
+* 2015-12-13   v0.1.1   Update doc
 * 2015-07-31   v0.1.0   Initial commit
+
+
