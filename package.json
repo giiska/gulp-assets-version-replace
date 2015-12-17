@@ -1,7 +1,7 @@
 {
   "name": "gulp-assets-version-replace",
   "description": "Gulp plugin for managing version of assets, easy to build new version to commit and deploy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://github.com/bammoo/gulp-assets-version-replace",
   "author": {
     "name": "bammoo",
@@ -19,20 +19,18 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "scripts": {
-    "test": "grunt test"
-  },
-  "browserDependencies": {
-    "grunt": "~0.4.1"
-  },
-  "peerDependencies": {
-    "grunt": "~0.4.1"
-  },
   "keywords": [
-    "gruntplugin"
+    "gulpplugin",
+    "gulp",
+    "assets",
+    "static",
+    "version",
+    "gulp-version"
   ],
+  "devDependencies": {
+    "gulp": ">=3.5.6"
+  },
   "dependencies": {
-    "gulp": ">=3.5.6",
     "gulp-util": ">=2.2.14",
     "md5": "^2.0.0",
     "through2": "^2.0.0"

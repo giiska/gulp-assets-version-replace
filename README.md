@@ -87,7 +87,7 @@ In your gulpfile.js place this line:
 var assetsVersionReplace = require('gulp-assets-version-replace');
 ```
 
-A dot file called `.gulp-assets-version-replace` will be created beside your gulpfile.js to serve as a json store. **Please ignore it in your .gitignore or .hgignore etc.**
+A dot file called `gulp-assets-version-replace-version.json` will be created beside your gulpfile.js to serve as a json store. **Please ignore it in your .gitignore or .hgignore etc.**
 
 Form asset link as following in your template:
 
