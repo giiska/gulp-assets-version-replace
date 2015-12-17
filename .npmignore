@@ -3,5 +3,5 @@
 /*.log
 /*.sublime-project
 /*.sublime-workspace
-/test/.gulp-assets-version-replace-version
+/test/gulp-assets-version-replace-version.json
 /test/dist
