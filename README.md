@@ -39,16 +39,17 @@ css_build/webapp.css
 #### 2. Configs in gulpfile.js：
 
 ```js
+var versionFileDist = 'dist/';
 gulp.task('assetsVersionReplace', function () {
-    assetsVersionReplace({
-      tsFiles: ['test/css_build/*.css', 'test/js_build/*.js'],
-      tsVersionedFilesDest: 'test/dist/',
+  gulp.src(['css_build/*.css', 'js_build/*.js'])
+    .pipe(assetsVersionReplace({
+      tsVersionedFilesDest: versionFileDist,
       replaceTemplateList: [
-        'test/header.php',
-        'test/footer.php',
-        'test/submodule/header.php'
+        'php-templates/header.php',
+        'php-templates/footer.php'
       ]
-    })
+    }))
+    .pipe(gulp.dest(versionFileDist))
 });
 ```
 #### 3. Run gulp task
@@ -109,14 +110,6 @@ Form asset link as following in your template:
 
 ## Gulp Plugin Options
 
-#### options.tsFiles
-
-Array of globs. Files which will be copied to a new folder and named with gerenated version.
-
-Type: `Array`
-Default value: `[]`
-
-
 #### options.tsVersionedFilesDest
 
 The destination folder place the result files.
@@ -129,16 +122,12 @@ Default value: `[]`
 
 List of templates which contain assets links of `tsFiles` . Support whatever extension like php, python Django, Express and etc.
 
-
 Type: `Array`
 Default value: `[]`
 
 
 ## Release History
 
-* 2015-12-15   v1.0.0   Refactor code, add feature of version store and compare
-* 2015-12-13   v0.1.2   Update github repo link
-* 2015-12-13   v0.1.1   Update doc
-* 2015-07-31   v0.1.0   Initial commit
-
+* 2015-12-16   v2.0.0   More standard for gulp pipe
+* 2015-12-15   v1.0.0
 

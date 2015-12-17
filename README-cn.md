@@ -40,17 +40,17 @@ css_build/webapp.css
 #### 2. gulpfile.js 配置如：
 
 ```js
-
+var versionFileDist = 'dist/';
 gulp.task('assetsVersionReplace', function () {
-    assetsVersionReplace({
-      tsFiles: ['test/css_build/*.css', 'test/js_build/*.js'],
-      tsVersionedFilesDest: 'test/dist/',
+  gulp.src(['css_build/*.css', 'js_build/*.js'])
+    .pipe(assetsVersionReplace({
+      tsVersionedFilesDest: versionFileDist,
       replaceTemplateList: [
-        'test/header.php',
-        'test/footer.php',
-        'test/submodule/header.php',
+        'php-templates/header.php',
+        'php-templates/footer.php'
       ]
-    })
+    }))
+    .pipe(gulp.dest(versionFileDist))
 });
 ```
 
@@ -113,13 +113,6 @@ var assetsVersionReplace = require('gulp-assets-version-replace');
 
 ### 配置选项
 
-#### options.tsFiles
-
-要复制成以时间戳命名的文件列表
-
-Type: `Array`
-Default value: `[]`
-
 #### options.tsVersionedFilesDest
 
 复制出以时间戳命名的文件列表后目标文件夹
@@ -138,9 +131,6 @@ Default value: `[]`
 
 ## Release History
 
-* 2015-12-15   v1.0.0   Refactor code, add feature of version store and compare
-* 2015-12-13   v0.1.2   Update github repo link
-* 2015-12-13   v0.1.1   Update doc
-* 2015-07-31   v0.1.0   Initial commit
-
+* 2015-12-16   v2.0.0   More standard for gulp pipe
+* 2015-12-15   v1.0.0
 
