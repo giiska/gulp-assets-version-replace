@@ -49,8 +49,7 @@ function scanTsFiles(dest, replaceTemplateList) {
       var newPath = file.relative.replace(extname, '.' + thisVersion + extname);
       reList.push({
         oldPath: oldPath,
-        newPath: newPath,
-        extname: extname
+        newPath: newPath
       })
       // rename file by set a new path
       var folderPath = file.base.replace(file.cwd + '/', '');
