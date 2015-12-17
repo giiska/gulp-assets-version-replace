@@ -1,5 +1,4 @@
 var gulp = require('gulp');
-var gutil = require('gulp-util');
 var fs = require("fs");
 var path = require("path");
 var through2       = require('through2');
@@ -13,7 +12,7 @@ var reList = [];
 
 var PLUGIN_NAME = 'gulp-assets-version-replace';
 
-function scanTsFiles(dest) {
+function scanTsFiles(dest, replaceTemplateList) {
   return through2.obj(function(file, enc, cb) {
     if (file.isNull()) {
       return cb(null, file);
@@ -26,23 +25,26 @@ function scanTsFiles(dest) {
     var fileVersions = db.get(file.relative);
     var thisVersion = md5(file.contents);
     var oldVersion;
-    var ignore = false;
+    var fileChanged = false;
     // Check file changed or not
     if(!fileVersions || fileVersions.length == 0) {
       oldVersion = '__placeholder__';
       fileVersions = [thisVersion];
+      // First time version
+      fileChanged = true;
     }
     else {
       if(fileVersions.indexOf(thisVersion) <= -1) {
         oldVersion = fileVersions[fileVersions.length - 1];
         fileVersions.push(thisVersion);
-      } else
-        ignore = true;
+        fileChanged = true;
+      }
     }
 
     db.set(file.relative, fileVersions)
 
-    if(!ignore) {
+    // Only pass modified files
+    if(fileChanged) {
       var oldPath = file.relative.replace(extname, '.' + oldVersion + extname);
       var newPath = file.relative.replace(extname, '.' + thisVersion + extname);
       reList.push({
@@ -50,14 +52,26 @@ function scanTsFiles(dest) {
         newPath: newPath,
         extname: extname
       })
-      // rename file
-      file.path = newPath;
-      // Only pass modified files
+      // rename file by set a new path
+      var folderPath = file.base.replace(file.cwd + '/', '');
+      file.path = dest + folderPath + newPath;
+
       this.push(file);
+
     }
 
     cb();
-  });
+  }, function(cb) {
+    // async save
+    db.save();
+
+    // Can only start after scaned ts files as wait for collecting relist
+    gulp.src(replaceTemplateList, { base: "./" })
+      .pipe(replaceTemplate())
+      .pipe(gulp.dest('.'));
+
+    cb();
+  })
 }
 
 function replaceTemplate() {
@@ -74,21 +88,9 @@ function replaceTemplate() {
 
 module.exports = function (options) {
   var tsFiles = options.tsFiles;
-  var tsVersionedFilesDest = options.tsVersionedFilesDest;
+  var dest = options.tsVersionedFilesDest;
   var replaceTemplateList = options.replaceTemplateList;
 
-  gulp.src(tsFiles, {base: "."})
-    .pipe(scanTsFiles(tsVersionedFilesDest))
-    .pipe(gulp.dest(tsVersionedFilesDest))
-    .on('end', function(err) {
-      // async save
-      db.save();
-
-      // Can only start after scaned ts files as wait for collecting relist
-      gulp.src(replaceTemplateList, { base: "./" })
-        .pipe(replaceTemplate())
-        .pipe(gulp.dest('.'));
-    });
-
+  return scanTsFiles(dest, replaceTemplateList)
 
 };

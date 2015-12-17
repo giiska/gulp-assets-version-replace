@@ -4,15 +4,18 @@ var gulp = require('gulp'),
   gulpSequence = require('gulp-sequence'),
   assetsVersionReplace = require("../index");
 
+var versionFileDist = 'dist/';
+
 gulp.task('assetsVersionReplace', function () {
-    assetsVersionReplace({
-      tsFiles: ['css_build/*.css', 'js_build/*.js'],
-      tsVersionedFilesDest: 'dist/',
+  gulp.src(['css_build/*.css', 'js_build/*.js'])
+    .pipe(assetsVersionReplace({
+      tsVersionedFilesDest: versionFileDist,
       replaceTemplateList: [
         'php-templates/header.php',
         'php-templates/footer.php'
       ]
-    })
+    }))
+    .pipe(gulp.dest(versionFileDist))
 });
 
 
