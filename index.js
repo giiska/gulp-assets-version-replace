@@ -87,10 +87,10 @@ function replaceTemplate() {
 }
 
 module.exports = function (options) {
-  var tsFiles = options.tsFiles;
   var dest = options.tsVersionedFilesDest;
   var replaceTemplateList = options.replaceTemplateList;
-
+  if(!dest || !replaceTemplateList)
+    throw new PluginError(PLUGIN_NAME, 'Missing option');
   return scanTsFiles(dest, replaceTemplateList)
 
 };
