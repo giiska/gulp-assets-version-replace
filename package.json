@@ -1,7 +1,7 @@
 {
   "name": "gulp-assets-version-replace",
   "description": "Gulp plugin for managing version of assets, easy to build new version to commit and deploy",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "homepage": "https://github.com/bammoo/gulp-assets-version-replace",
   "author": {
     "name": "bammoo",
