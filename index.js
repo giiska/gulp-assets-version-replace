@@ -34,8 +34,8 @@ function scanTsFiles(dest, replaceTemplateList) {
       fileChanged = true;
     }
     else {
-      if(fileVersions.indexOf(thisVersion) <= -1) {
-        oldVersion = fileVersions[fileVersions.length - 1];
+      oldVersion = fileVersions[fileVersions.length - 1];
+      if(oldVersion != thisVersion) {
         fileVersions.push(thisVersion);
         fileChanged = true;
       }
