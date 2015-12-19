@@ -34,22 +34,20 @@ css_build/webapp.css
 <link href="static/dist/css_build/webapp.__placeholder__.css" />
 ```
 
-*Note:  `__placeholder__` is a placeholder when it's not auto versioned before*
+*Note:  `__placeholder__` is a placeholder when it has not been  versioned yet*
 
 #### 2. Configs in gulpfile.js：
 
 ```js
-var versionFileDist = 'dist/';
 gulp.task('assetsVersionReplace', function () {
   gulp.src(['css_build/*.css', 'js_build/*.js'])
     .pipe(assetsVersionReplace({
-      tsVersionedFilesDest: versionFileDist,
       replaceTemplateList: [
         'php-templates/header.php',
         'php-templates/footer.php'
       ]
     }))
-    .pipe(gulp.dest(versionFileDist))
+    .pipe(gulp.dest('dist/'))
 });
 ```
 #### 3. Run gulp task
@@ -61,8 +59,8 @@ Your get these result:
 * **Files named with generated version** 
 
 ```
-dest/js_build/app.c7ccb6b8ce569a65ed09d4256e89ec30.js
-dest/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css
+dist/js_build/app.c7ccb6b8ce569a65ed09d4256e89ec30.js
+dist/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css
 ```
 
 * **Links in templates have been replaced with generated version**
@@ -88,7 +86,7 @@ In your gulpfile.js place this line:
 var assetsVersionReplace = require('gulp-assets-version-replace');
 ```
 
-A dot file called `gulp-assets-version-replace-version.json` will be created beside your gulpfile.js to serve as a json store. **Please ignore it in your .gitignore or .hgignore etc.**
+**A dot file called `gulp-assets-version-replace-version.json` will be created beside your gulpfile.js** to serve as a json store. You can ignore it in your .gitignore or .hgignore etc.
 
 Form asset link as following in your template:
 
@@ -110,24 +108,18 @@ Form asset link as following in your template:
 
 ## Gulp Plugin Options
 
-#### options.tsVersionedFilesDest
-
-The destination folder place the result files.
-
-Type: `Array`
-Default value: `[]`
-
-
 #### options.replaceTemplateList
 
-List of templates which contain assets links of `tsFiles` . Support whatever extension like php, python Django, Express and etc.
+List of templates which contain assets links of `tsFiles` . Support whatever extension like php, python Django, Express and etc. **Make sure give templates paths relative to gulpfile.js.**
 
-Type: `Array`
-Default value: `[]`
+Optional: true
+Value Type: `Array`
+Default Value: `[]`
 
 
 ## Release History
 
+* 2015-12-19   v2.1.0   More stable now
 * 2015-12-16   v2.0.0   More standard for gulp pipe
 * 2015-12-15   v1.0.0
 

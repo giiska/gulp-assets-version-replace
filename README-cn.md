@@ -40,29 +40,27 @@ css_build/webapp.css
 #### 2. gulpfile.js 配置如：
 
 ```js
-var versionFileDist = 'dist/';
 gulp.task('assetsVersionReplace', function () {
   gulp.src(['css_build/*.css', 'js_build/*.js'])
     .pipe(assetsVersionReplace({
-      tsVersionedFilesDest: versionFileDist,
       replaceTemplateList: [
         'php-templates/header.php',
         'php-templates/footer.php'
       ]
     }))
-    .pipe(gulp.dest(versionFileDist))
+    .pipe(gulp.dest('dist/'))
 });
 ```
 
 #### 3. 运行 gulp task
-	
+  
 `gulp assetsVersionReplace` 
-	
+  
 得到结果：
 
 ```
-dest/js_build/app.c7ccb6b8ce569a65ed09d4256e89ec30.js
-dest/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css
+dist/js_build/app.c7ccb6b8ce569a65ed09d4256e89ec30.js
+dist/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css
 ```
 
 * **模板中静态文件版本号也被自动替换了**
@@ -89,7 +87,7 @@ npm install gulp-assets-version-replace --save-dev
 var assetsVersionReplace = require('gulp-assets-version-replace');
 ```
 
-运行 gulp task 后 Gulpfile.js 目录下会自动生成一个 `gulp-assets-version-replace-version.json` 的文件用于本地存储 json 格式的版本管理数据库。你可以添加到 .gitignore 或 .hgignore 中。
+**运行 gulp task 后 Gulpfile.js 目录下会自动生成一个 `gulp-assets-version-replace-version.json`** 的文件用于本地存储 json 格式的版本管理数据库。你可以添加到 .gitignore 或 .hgignore 中。
 
 在你的模板中使用这样的格式：
 
@@ -113,17 +111,9 @@ var assetsVersionReplace = require('gulp-assets-version-replace');
 
 ### 配置选项
 
-#### options.tsVersionedFilesDest
-
-复制出以时间戳命名的文件列表后目标文件夹
-
-Type: `Array`
-Default value: `[]`
-
-
 #### options.replaceTemplateList
 
-要替换时间戳的 html 或 php 或其他任意格式的文件模板
+要替换时间戳的 html 或 php 或其他任意格式的文件模板。**模板路径必须是基于 gulpfile.js 的相对路径**
 
 Type: `Array`
 Default value: `[]`
@@ -131,6 +121,7 @@ Default value: `[]`
 
 ## Release History
 
+* 2015-12-19   v2.1.0   More stable now
 * 2015-12-16   v2.0.0   More standard for gulp pipe
 * 2015-12-15   v1.0.0
 
