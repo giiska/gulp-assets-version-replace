@@ -76,7 +76,7 @@ dist/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css
 
 ## Gulp4 Example
 
-这里有一个 gulp4 示例: [gulp-workflow](https://github.com/bammoo/gulp-workflow)
+这里有一个 gulp4 配置本插件的示例: [gulp-workflow](https://github.com/bammoo/gulp-workflow/blob/master/h5-app/tasks-for-gulp4/gulpfile.js)
 
 
 ## 安装
