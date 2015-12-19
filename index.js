@@ -60,14 +60,16 @@ function scanTsFiles(replaceTemplateList) {
     cb();
 
   }, function(cb) {
-    // async save
+    // async save, and save only once
     db.save();
 
     // Can only start after scaned ts files and finished collecting relist
     // Templates are always relative path of gulpfile.js
-    gulp.src(replaceTemplateList, { base: "./" })
-      .pipe(replaceTemplate())
-      .pipe(gulp.dest('.'));
+    if(replaceTemplateList && replaceTemplateList.length) {
+      gulp.src(replaceTemplateList, { base: "./" })
+        .pipe(replaceTemplate())
+        .pipe(gulp.dest('.'));
+    }
 
     cb();
   })
@@ -87,7 +89,5 @@ function replaceTemplate() {
 
 module.exports = function (options) {
   var replaceTemplateList = options.replaceTemplateList;
-  if(!replaceTemplateList)
-    throw new PluginError(PLUGIN_NAME, 'Missing option');
   return scanTsFiles(replaceTemplateList)
 }
