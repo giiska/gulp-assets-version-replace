@@ -75,7 +75,7 @@ You can commit the result of prev step directly if you are deployoing a static s
 
 ## Gulp4 Example
 
-A gulp4 example is here: [gulp-workflow](https://github.com/bammoo/gulp-workflow)
+A gulp4 example of using this plugin is here: [gulp-workflow](https://github.com/bammoo/gulp-workflow/blob/master/h5-app/tasks-for-gulp4/gulpfile.js)
 
 ## Install
 
