@@ -73,6 +73,9 @@ dist/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css
 
 You can commit the result of prev step directly if you are deployoing a static site.
 
+## Gulp4 Example
+
+A gulp4 example is here: [gulp-workflow](https://github.com/bammoo/gulp-workflow)
 
 ## Install
 

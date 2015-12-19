@@ -74,6 +74,11 @@ dist/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css
 如果是静态网站，你可以直接提交结果了。
 
 
+## Gulp4 Example
+
+这里有一个 gulp4 示例: [gulp-workflow](https://github.com/bammoo/gulp-workflow)
+
+
 ## 安装
 
 
