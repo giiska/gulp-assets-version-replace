@@ -12,7 +12,7 @@ var reList = [];
 
 var PLUGIN_NAME = 'gulp-assets-version-replace';
 
-function scanTsFiles(dest, replaceTemplateList) {
+function scanTsFiles(replaceTemplateList) {
   return through2.obj(function(file, enc, cb) {
     if (file.isNull()) {
       return cb(null, file);
@@ -34,8 +34,10 @@ function scanTsFiles(dest, replaceTemplateList) {
       fileChanged = true;
     }
     else {
+      // Use the last key to comparison as only the last version is using in template
       oldVersion = fileVersions[fileVersions.length - 1];
       if(oldVersion != thisVersion) {
+        // TODO: whether we should keep only last version?
         fileVersions.push(thisVersion);
         fileChanged = true;
       }
@@ -46,25 +48,23 @@ function scanTsFiles(dest, replaceTemplateList) {
     // Only pass modified files
     if(fileChanged) {
       var oldPath = file.relative.replace(extname, '.' + oldVersion + extname);
-      var newPath = file.relative.replace(extname, '.' + thisVersion + extname);
+      var newRelativePath = file.relative.replace(extname, '.' + thisVersion + extname);
       reList.push({
         oldPath: oldPath,
-        newPath: newPath
+        newRelativePath: newRelativePath
       })
-      // rename file by set a new path
-      var folderPath = file.base.replace(file.cwd + '/', '');
-      file.path = dest + folderPath + newPath;
-
+      var newPath = file.path.replace(extname, '.' + thisVersion + extname);
+      file.path = newPath;
       this.push(file);
-
     }
-
     cb();
+
   }, function(cb) {
     // async save
     db.save();
 
-    // Can only start after scaned ts files as wait for collecting relist
+    // Can only start after scaned ts files and finished collecting relist
+    // Templates are always relative path of gulpfile.js
     gulp.src(replaceTemplateList, { base: "./" })
       .pipe(replaceTemplate())
       .pipe(gulp.dest('.'));
@@ -78,7 +78,7 @@ function replaceTemplate() {
     var content = file.contents.toString();
     for (var i = reList.length - 1; i >= 0; i--) {
       var replaceInfo = reList[i];
-      content = content.replace(replaceInfo.oldPath, replaceInfo.newPath)
+      content = content.replace(replaceInfo.oldPath, replaceInfo.newRelativePath)
     }
     file.contents = new Buffer(content);
     cb(null, file)
@@ -86,10 +86,8 @@ function replaceTemplate() {
 }
 
 module.exports = function (options) {
-  var dest = options.tsVersionedFilesDest;
   var replaceTemplateList = options.replaceTemplateList;
-  if(!dest || !replaceTemplateList)
+  if(!replaceTemplateList)
     throw new PluginError(PLUGIN_NAME, 'Missing option');
-  return scanTsFiles(dest, replaceTemplateList)
-
-};
+  return scanTsFiles(replaceTemplateList)
+}
