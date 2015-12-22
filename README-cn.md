@@ -1,5 +1,7 @@
 # gulp-assets-version-replace 中文说明  [![Build Status](https://travis-ci.org/bammoo/gulp-assets-version-replace.svg?branch=master)](https://travis-ci.org/bammoo/gulp-assets-version-replace) [![npm version](https://badge.fury.io/js/gulp-assets-version-replace.svg)](http://badge.fury.io/js/gulp-assets-version-replace)
 
+[Grunt 版本](https://www.npmjs.com/package/grunt-assets-version-replace)
+
 
 > 静态文件版本管理 Gulp 插件，最方便的静态文件发布方案。
 
