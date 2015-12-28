@@ -1,6 +1,6 @@
 # gulp-assets-version-replace  [![Build Status](https://travis-ci.org/bammoo/gulp-assets-version-replace.svg?branch=master)](https://travis-ci.org/bammoo/gulp-assets-version-replace) [![npm version](https://badge.fury.io/js/gulp-assets-version-replace.svg)](http://badge.fury.io/js/gulp-assets-version-replace)
 
-[Grunt version is here](https://github.com/bammoo/grunt-assets-version-replace)
+[Grunt version is here](https://www.npmjs.com/package/grunt-assets-version-replace)
 
 [中文文档](README-cn.md)
 
@@ -89,7 +89,7 @@ In your gulpfile.js place this line:
 var assetsVersionReplace = require('gulp-assets-version-replace');
 ```
 
-**A dot file called `gulp-assets-version-replace-version.json` will be created beside your gulpfile.js** to serve as a json store. You can ignore it in your .gitignore or .hgignore etc.
+**A json file called `gulp-assets-version-replace-version.json` will be created beside your gulpfile.js** to store versions.
 
 Form asset link as following in your template:
 

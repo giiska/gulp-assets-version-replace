@@ -1,5 +1,7 @@
 # gulp-assets-version-replace 中文说明  [![Build Status](https://travis-ci.org/bammoo/gulp-assets-version-replace.svg?branch=master)](https://travis-ci.org/bammoo/gulp-assets-version-replace) [![npm version](https://badge.fury.io/js/gulp-assets-version-replace.svg)](http://badge.fury.io/js/gulp-assets-version-replace)
 
+[Grunt 版本](https://www.npmjs.com/package/grunt-assets-version-replace)
+
 
 > 静态文件版本管理 Gulp 插件，最方便的静态文件发布方案。
 
@@ -92,7 +94,7 @@ npm install gulp-assets-version-replace --save-dev
 var assetsVersionReplace = require('gulp-assets-version-replace');
 ```
 
-**运行 gulp task 后 Gulpfile.js 目录下会自动生成一个 `gulp-assets-version-replace-version.json`** 的文件用于本地存储 json 格式的版本管理数据库。你可以添加到 .gitignore 或 .hgignore 中。
+**运行 gulp task 后 Gulpfile.js 目录下会生成一个 `gulp-assets-version-replace-version.json`** 的文件用于本地存储 json 格式的版本管理数据库。
 
 在你的模板中使用这样的格式：
 
