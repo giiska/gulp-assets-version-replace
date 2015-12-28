@@ -94,7 +94,7 @@ npm install gulp-assets-version-replace --save-dev
 var assetsVersionReplace = require('gulp-assets-version-replace');
 ```
 
-**运行 gulp task 后 Gulpfile.js 目录下会自动生成一个 `gulp-assets-version-replace-version.json`** 的文件用于本地存储 json 格式的版本管理数据库。你可以添加到 .gitignore 或 .hgignore 中。
+**运行 gulp task 后 Gulpfile.js 目录下会生成一个 `gulp-assets-version-replace-version.json`** 的文件用于本地存储 json 格式的版本管理数据库。
 
 在你的模板中使用这样的格式：
 
