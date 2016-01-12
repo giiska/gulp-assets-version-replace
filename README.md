@@ -15,7 +15,7 @@
 - Auto replace versioned assets in template files, like php, python Django, Expressjs ejs and etc.
   
 
-## Example
+## Examples
 
 
 #### 1. File structure
@@ -69,11 +69,38 @@ dist/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css
 <link href="static/dist/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css" />
 ```
 
-#### 4. Commit or config more
+#### 4. Commit
 
-You can commit the result of prev step directly if you are deployoing a static site.
+The changes of template contain version string, commit directly if you are deployoing a static site.   
 
-## Gulp4 Example
+
+### More Example
+
+In some case templates are created by other gulp task before replacing version string. [`versionsAmount: 0` option](#optionsreplacetemplatelist) is introduced for this reason.   
+See following example, the templates in the dist folder are always have `__placeholder__` as they are copied from dev folder each time run gulp task. Setting `versionsAmount: 0` will make version replacing works in this case.
+
+```js
+gulp.task('copyTemplates', function () {
+  return gulp.src('php-templates-dev/*.php')
+        .pipe(usemin({
+            jsmin: uglify()
+        }))
+        .pipe(gulp.dest('php-templates-dist'));
+})
+gulp.task('assetsVersionReplace', ['copyTemplates'], function () {
+  return gulp.src(['css_build/*.css', 'js_build/*.js'])
+    .pipe(assetsVersionReplace({
+      versionsAmount: 0,
+      replaceTemplateList: [
+        'php-templates-dist/header.php',
+        'php-templates-dist/footer.php'
+      ]
+    }))
+    .pipe(gulp.dest('dist/'))
+});
+```
+
+### Gulp4 Example
 
 A gulp4 example of using this plugin is here: [gulp-workflow](https://github.com/bammoo/gulp-workflow/blob/master/h5-app/tasks-for-gulp4/gulpfile.js)
 
@@ -110,6 +137,10 @@ Form asset link as following in your template:
 
 
 ## Gulp Plugin Options
+
+#### options.versionsAmount
+
+How many versions to keep in your local json file. Set `0` to disable local save.
 
 #### options.replaceTemplateList
 

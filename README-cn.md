@@ -15,7 +15,7 @@
 ## 如果没有用过 gulp 请看 [http://gulpjs.com/](http://gulpjs.com/)
 
 
-### Demo
+### Examples
 
 #### 1. 文件结构
 
@@ -73,10 +73,35 @@ dist/css_build/webapp.2af81cda4dacbd5d5294539474076aae.css
 
 #### 4. 提交
 
-如果是静态网站，你可以直接提交结果了。
+如果是静态网站，可以直接提交模板替换版本号的变更了。
+
+### More Example
+
+某些情况下，模板是由其他 gulp 动态生成的。比如下面的例子，dist 下的 php 总是包含 `__placeholder__` 因为它们是从 dev 下拷贝过来的。这时设置 [`versionsAmount: 0` option](#optionsreplacetemplatelist) 可以实现每次替换 `__placeholder__`。
+
+```js
+gulp.task('copyTemplates', function () {
+  return gulp.src('php-templates-dev/*.php')
+        .pipe(usemin({
+            jsmin: uglify()
+        }))
+        .pipe(gulp.dest('php-templates-dist'));
+})
+gulp.task('assetsVersionReplace', ['copyTemplates'], function () {
+  return gulp.src(['css_build/*.css', 'js_build/*.js'])
+    .pipe(assetsVersionReplace({
+      versionsAmount: 0,
+      replaceTemplateList: [
+        'php-templates-dist/header.php',
+        'php-templates-dist/footer.php'
+      ]
+    }))
+    .pipe(gulp.dest('dist/'))
+});
+```
 
 
-## Gulp4 Example
+### Gulp4 Example
 
 这里有一个 gulp4 配置本插件的示例: [gulp-workflow](https://github.com/bammoo/gulp-workflow/blob/master/h5-app/tasks-for-gulp4/gulpfile.js)
 
@@ -117,6 +142,10 @@ var assetsVersionReplace = require('gulp-assets-version-replace');
 ## 配置
 
 ### 配置选项
+
+#### options.versionsAmount
+
+本地 json 文件保留多少个版本，设置为 `0` 将取消保存版本号。
 
 #### options.replaceTemplateList
 

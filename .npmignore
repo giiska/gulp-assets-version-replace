@@ -1,7 +1,12 @@
 /node_modules
 /history.md
 /*.log
+
+.cache
+.debug.js
+.DS_Store
+node_modules
+examples/dist/
 /*.sublime-project
 /*.sublime-workspace
-/test/gulp-assets-version-replace-version.json
-/test/dist
+gulp-assets-version-replace-version.json

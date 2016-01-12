@@ -2,5 +2,7 @@
 .debug.js
 .DS_Store
 node_modules
-test/dist/
+examples/dist/
+/*.sublime-project
+/*.sublime-workspace
 gulp-assets-version-replace-version.json
