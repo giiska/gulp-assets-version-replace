@@ -7,6 +7,6 @@
 .DS_Store
 node_modules
 examples/dist/
-/*.sublime-project
-/*.sublime-workspace
+*.sublime-project
+*.sublime-workspace
 gulp-assets-version-replace-version.json
