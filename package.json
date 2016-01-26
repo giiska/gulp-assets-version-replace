@@ -28,7 +28,8 @@
     "gulp-version"
   ],
   "devDependencies": {
-    "gulp": "^3.0.0"
+    "gulp": "^3.0.0",
+    "gulp-flatten": "^0.2.0"
   },
   "dependencies": {
     "gulp-util": "^3.0.0",
