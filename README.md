@@ -52,9 +52,9 @@ gulp.task('assetsVersionReplace', function () {
 ```
 #### 3. Run gulp task
 
-`gulp assetsVersionReplace` in your terminal.
+Run `gulp assetsVersionReplace` in your terminal.
 
-Your get these result:
+Result:
 
 * **Files named with generated version** 
 
