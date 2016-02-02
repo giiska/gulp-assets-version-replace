@@ -108,7 +108,7 @@ function replaceTemplate() {
       var reItem = reList[i];
       var count = countOcurrences(content, escapeRegExp(reItem.oldPath));
       if(count > 0) {
-        util.log('Replaced ' + util.colors.magenta(count) + ' version string of ' + util.colors.gray(reItem.fileBasename) + ' in ' + file.relative + ':')
+        util.log(util.colors.cyan(PLUGIN_NAME), 'Replaced version(s) of ' + util.colors.magenta(reItem.fileBasename) + ' in ', util.colors.gray(file.relative))
       }
       content = content.replace(reItem.oldPath, reItem.newRelativePath)
     }
