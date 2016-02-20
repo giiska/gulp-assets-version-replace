@@ -10,9 +10,8 @@
 
 ## Features
 
-- Generate new file for js,css etc. based on md5 of file contents
-- Create new version only for changed assets
-- Auto replace versioned assets in template files, like php, python Django, Expressjs ejs and etc.
+- Generate new version for changed files based on md5 of file contents
+- Replacing version string in template files, like php, python Django, Expressjs ejs and etc.
   
 
 ## Examples
